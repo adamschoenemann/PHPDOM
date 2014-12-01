@@ -229,9 +229,9 @@ class Element
 	 */
 	public function append(&$node)
 	{
-		$node->parent = this;
+		$node->parent = $this;
 		$this->children[] = $node;
-		return this;
+		return $this;
 	}
 
 	/**
