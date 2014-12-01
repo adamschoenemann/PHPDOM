@@ -1,6 +1,7 @@
 <?php namespace PHPDOM;
 /**
  * @author Adam Schønemann
+ * @package adamschoenemann/phpdom
  * @version 0.0.1
  */
 

@@ -1,0 +1,12 @@
+{
+    "name": "adamschoenemann/phpdom",
+    "description": "A library for programmable DOM creation and modification",
+    "license": "GNU GPLv2",
+    "authors": [
+        {
+            "name": "Adam Schønemann",
+            "email": "adamschoenemann@gmail.com"
+        }
+    ],
+    "require": {}
+}
