@@ -85,14 +85,35 @@ class HtmlText implements ToHtml
 
 class Element
 {
-	/** string */
+	/**
+	 * @var string
+	 */
 	private $name;
 
-	/** assoc of string -> attribute*/
+	/**
+	 * assoc of string -> attribute
+	 * @var assoc
+	 */
 	private $attributes;
 
+	/**
+	 * An array of Element children
+	 * @var array
+	 */
 	private $children;
 
+	/**
+	 * The parent of this element
+	 * @var Element
+	 */
+	private $parent = null;
+
+	/**
+	 * Constructor
+	 * @param string  $name       The tag of the element
+	 * @param assoc   $attributes The attributes
+	 * @param array   $children   An array of Elements
+	 */
 	public function __construct($name, $attributes = null, $children = array())
 	{
 		$this->name = $name;
@@ -106,9 +127,9 @@ class Element
 		$this->children = $children;
 	}
 
+
 	public function addAttribute($key, $val)
 	{
-
 		if(array_key_exists($key, $this->attributes))
 			$this->attributes[$key]->add($val);
 		else
@@ -122,7 +143,12 @@ class Element
 
 	public function hasAttribute($key)
 	{
-		return in_array($key, $this->attributes);
+		return in_array($key, $this->attributes) && $this->getAttribute($key) != '';
+	}
+
+	public function hasClass($class)
+	{
+		return $this->hasAttribute('class');
 	}
 
 	public function getAttribute($key)
@@ -176,7 +202,7 @@ class Element
 		return implode($html, $newline);
 	}
 
-	public function getName()
+	public function name()
 	{
 		return $this->name;
 	}
@@ -191,10 +217,44 @@ class Element
 		return $this->removeAttribute('class', $class);
 	}
 
-	public function addChild($node)
+	public function append(&$node)
 	{
+		$node->parent = this;
 		$this->children[] = $node;
 		return $node;
+	}
+
+	public function get($index)
+	{
+		return $this->children[$index];
+	}
+
+	public function first()
+	{
+		return $this->get(0);
+	}
+
+	public function last()
+	{
+		return $this->get(count($this->children) - 1);
+	}
+
+	public function count()
+	{
+		return count($this->children);
+	}
+
+	public function parent()
+	{
+		return $this->parent;
+	}
+
+	public function withClass($class)
+	{
+		return array_filter($this->children, function($child)
+		{
+			return ($child->hasClass('class'));
+		});
 	}
 
 	public function addText($text)
@@ -218,31 +278,31 @@ class Span extends Element {
 
 class Table extends Element {
 	function __construct($attributes = null, $children = array()) {
-		parent::__construct('table')
+		parent::__construct('table', $attributes, $children);
 	}
 }
 class P extends Element {
 	function __construct($attributes = null, $children = array()) {
-		parent::__construct('p')
+		parent::__construct('p', $attributes, $children);
 	}
 }
 class A extends Element {
 	function __construct($attributes = null, $children = array()) {
-		parent::__construct('a')
+		parent::__construct('a', $attributes, $children);
 	}
 }
 class Li extends Element {
 	function __construct($attributes = null, $children = array()) {
-		parent::__construct('li')
+		parent::__construct('li', $attributes, $children);
 	}
 }
 class Ul extends Element {
 	function __construct($attributes = null, $children = array()) {
-		parent::__construct('ul')
+		parent::__construct('ul', $attributes, $children);
 	}
 }
 class Ol extends Element {
 	function __construct($attributes = null, $children = array()) {
-		parent::__construct('ol')
+		parent::__construct('ol', $attributes, $children);
 	}
 }
