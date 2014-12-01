@@ -299,7 +299,7 @@ class Element
 	 */
 	public function appendText($text)
 	{
-		return $this->appendChild(new Text($text));
+		return $this->append(new Text($text));
 	}
 
 }
