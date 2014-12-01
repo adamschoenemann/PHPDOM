@@ -297,9 +297,9 @@ class Element
 	 * Adds a text element with $text
 	 * @param string $text
 	 */
-	public function addText($text)
+	public function appendText($text)
 	{
-		return $this->addChild(new Text($text));
+		return $this->appendChild(new Text($text));
 	}
 
 }
