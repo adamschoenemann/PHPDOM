@@ -101,6 +101,12 @@ class Attribute
  */
 interface ToMarkup
 {
+	/**
+	 * Converts the Text element to markup (string)
+	 * @param  boolean $pretty
+	 * @param  integer $level
+	 * @return string          The generated markup
+	 */
 	public function toMarkup($pretty, $level);
 }
 
@@ -132,6 +138,9 @@ class Text implements ToMarkup
 	}
 }
 
+/**
+ * A DOM element ("Tag")
+ */
 class Element
 {
 	/**
@@ -441,3 +450,4 @@ class Ol extends Element {
 		parent::__construct('ol', $attributes, $children);
 	}
 }
+
