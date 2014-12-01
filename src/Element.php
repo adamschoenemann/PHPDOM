@@ -187,7 +187,7 @@ class Element
 			$children[] = $child->toMarkup($pretty, $level + 1);
 		}
 		$html = array();
-		$line =  $indent . '<' . $this->getName();
+		$line =  $indent . '<' . $this->name();
 		if(count($attrs) > 0)
 			$line .= ' ' . implode($attrs, ' ');
 		$line .= '>';
@@ -196,7 +196,7 @@ class Element
 		$line = implode($children, $newline);
 		$html[] = $line;
 
-		$line = $indent . '</' . $this->getName() . '>';
+		$line = $indent . '</' . $this->name() . '>';
 		$html[] = $line;
 
 		return implode($html, $newline);
